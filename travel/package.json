@@ -1,0 +1,22 @@
+{
+  "name": "travel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lee",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "co": "^4.6.0",
+    "csv": "^1.1.0",
+    "event-stream": "^3.3.4",
+    "events": "^1.1.1",
+    "exceljs": "^0.2.22",
+    "fibrous": "^0.4.0",
+    "lodash": "^4.15.0",
+    "underscore": "^1.8.3"
+  }
+}
