@@ -14,6 +14,8 @@ state-mileage是用来统计用户绑定终端号的车辆行驶的里程数的�
 
 ## 操作步骤：
 
+1. 用户在cmd命令行窗口中进入到`travel`目录下，然后输入`npm install`来安装程序所依赖的模块 
+
 1. 用户在cmd命令行窗口中切换到`travel`目录下的`index`文件夹，然后输入 `node city_indexer.js` 来索引txt中的城市数据
 
 1. 用户在命令行中返回到travel目录，输入 `node main.js`来运行程序，执行程序后控制台输出该程序的正确使用方法是需要带参数指定路径的。
