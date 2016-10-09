@@ -14,8 +14,8 @@ module.exports = {
 		sql: 'SELECT * FROM T_LOCATION WHERE tid="89302720396911973407" AND category=1 AND latitude!=0 AND longitude!=0;'
 	},
 	raw:{
-		province:'raw/admin1CodesASCII.txt',
+		province:'../raw/admin1CodesASCII.txt',
 		//city:'raw/allCountries.txt',
-		city:'raw/US.txt',
+		city:'../raw/US.txt',
 	}
 }
