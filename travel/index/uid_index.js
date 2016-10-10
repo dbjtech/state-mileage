@@ -3,6 +3,7 @@ const argvUtil = require('../utils/argvUtil.js')
 const Excel = require('exceljs')
 const Promise = require('bluebird')
 const csv = Promise.promisifyAll(require('csv'))
+const path = require('path')
 
 let fileData = fs.readFileSync(argvUtil.argv.uid)
 let sheets = {}
@@ -14,7 +15,7 @@ function createExcel(name, rows) {
 	for (let row of rows) {
 		sheet.addRow(row)
 	}
-	return workbook.xlsx.writeFile(argvUtil.argv.output + `${name}.xlsx`)
+	return workbook.xlsx.writeFile(path.join(argvUtil.argv.output, `${name}.xlsx`))
 }
 
 const exportXlsx = function* () {

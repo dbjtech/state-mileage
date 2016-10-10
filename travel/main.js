@@ -5,6 +5,7 @@ const co = require('co')
 const user_index = require('./index/uid_index.js')
 const locreader = require('./loc_reader.js')
 const Promise = require('bluebird')
+const path = require('path')
 
 const readdir = Promise.promisify(fs.readdir)
 const argvUtil = require('./utils/argvUtil.js')
@@ -14,7 +15,7 @@ const gen2 = function* () {
 	for (let filename of files) {
 		const workbook = new Excel.Workbook()
 		if (filename.match(/\.xlsx$/)) {
-			yield (workbook.xlsx.readFile(argvUtil.argv.output + filename))
+			yield workbook.xlsx.readFile(path.join(argvUtil.argv.output, filename))
 			let worksheet = workbook.getWorksheet()
 			let tnCol = worksheet.getColumn(4)
 			tnCol.eachCell((cell, rowNumber) => {
@@ -24,7 +25,7 @@ const gen2 = function* () {
 					row.commit()
 				}
 			})
-			yield workbook.xlsx.writeFile(argvUtil.argv.output + filename)
+			yield workbook.xlsx.writeFile(path.join(argvUtil.argv.output, filename))
 			console.log('write succeed')
 		}
 	}
@@ -37,7 +38,7 @@ const gen = function* () {
 	for (let filename of files) {
 		const workbook = new Excel.Workbook()
 		if (filename.match(/\.xlsx$/)) {
-			yield (workbook.xlsx.readFile(argvUtil.argv.output + filename))
+			yield workbook.xlsx.readFile(path.join(argvUtil.argv.output, filename))
 			console.log('parsing', filename)
 			let worksheet = workbook.getWorksheet()
 			for (let k = 0; k < result.length; k++) {
@@ -71,12 +72,10 @@ const gen = function* () {
 					}
 				})
 			}
-			yield workbook.xlsx.writeFile(argvUtil.argv.output + filename)
+			yield workbook.xlsx.writeFile(path.join(argvUtil.argv.output, filename))
 		}
 	}
 	yield* gen2()
 }
 
 co(gen).then(console.info).catch(console.error)
-
-

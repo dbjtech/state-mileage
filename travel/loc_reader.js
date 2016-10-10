@@ -5,14 +5,12 @@ var fs = require('fs')
 var events = require('events')
 var db = require('./common/db.js')
 var surveyor = require('./common/surveyor.js')
+const path = require('path')
 
 var emitter = new events.EventEmitter()
 var all_loc = {}
 const argvUtil = require('./utils/argvUtil.js')
-
-var path = argvUtil.argv.locations
-var files = fs.readdirSync(path)
-
+var files = fs.readdirSync(argvUtil.argv.locations)
 
 db.init('city')
 db.ensureIndex('city', {
@@ -23,7 +21,7 @@ emitter.on('pop file', function() {
 	if (files.length) {
 		var file = files.pop()
 		if (file.match(/\.csv$/))
-			emitter.emit('parse file', path + file)
+			emitter.emit('parse file', path.join(argvUtil.argv.locations, file))
 		else
 			emitter.emit('pop file')
 	} else {
