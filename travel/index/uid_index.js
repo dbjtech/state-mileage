@@ -16,6 +16,11 @@ function createExcel(name, rows) {
 	for (let row of rows) {
 		sheet.addRow(row)
 	}
+	if (argvUtil.argv.unit !== 'miles' && argvUtil.argv.unit !== 'km') {
+		console.log('you should input a unit, miles or km')
+		console.log('exiting with code 1')
+		process.exit(1)
+	}
 	if (fs.existsSync(argvUtil.argv.output)) {
 		return workbook.xlsx.writeFile(path.join(argvUtil.argv.output, `${name}.xlsx`))
 	}
