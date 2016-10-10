@@ -4,6 +4,7 @@ const Excel = require('exceljs')
 const Promise = require('bluebird')
 const csv = Promise.promisifyAll(require('csv'))
 const path = require('path')
+const mkdirp = require('mkdirp')
 
 let fileData = fs.readFileSync(argvUtil.argv.uid)
 let sheets = {}
@@ -15,8 +16,13 @@ function createExcel(name, rows) {
 	for (let row of rows) {
 		sheet.addRow(row)
 	}
+	if (fs.existsSync(argvUtil.argv.output)) {
+		return workbook.xlsx.writeFile(path.join(argvUtil.argv.output, `${name}.xlsx`))
+	}
+	mkdirp(argvUtil.argv.output)
 	return workbook.xlsx.writeFile(path.join(argvUtil.argv.output, `${name}.xlsx`))
 }
+
 
 const exportXlsx = function* () {
 	let rows = yield csv.parseAsync(fileData)

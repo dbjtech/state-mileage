@@ -17,6 +17,7 @@
     "exceljs": "^0.2.22",
     "fibrous": "^0.4.0",
     "lodash": "^4.15.0",
+    "mkdirp": "^0.5.1",
     "mongodb": "^2.2.10",
     "mongoskin": "^2.1.0",
     "path": "^0.12.7",
