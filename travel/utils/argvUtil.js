@@ -2,7 +2,7 @@ const argv = require('yargs')
 	.options('o', {
 		alias: 'output',
 		demand: true,
-		describe: 'the filefolder which contains uid.xlsx is supposed to be read',
+		describe: 'the filefolder that the user.xlsx will be outputed into',
 		type: 'string',
 	})
 	.options('u', {
