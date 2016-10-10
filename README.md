@@ -8,11 +8,13 @@ state-mileage是用来统计用户绑定终端号的车辆行驶的里程数的�
 
 1. 用户把目录中的CN.zip,CA.zip,US.zip,US.z01,US.z02等原始数据下载下来并解压到travel目录下的raw文件夹中
 
-1. 在`travel`根目录下找到`config.js`，用文本编辑器打开config.js并修改文件中  `city:'raw/US.txt'` 这一行中`/`后面的文件名，例如用户想计算CN里程的数据则将US.txt改为CN.txt，修改完成后保存并关闭config.js文件
+1. 在`travel`根目录下找到`config.js`，用文本编辑器打开config.js并修改文件中  `city:'../raw/US.txt'` 这一行中`/`后面的文件名，例如用户想计算CN里程的数据则将US.txt改为CN.txt，修改完成后保存并关闭config.js文件
 
 1. 用户在Mongodb官网下下载并安装好mongodb,安装完成后在cmd命令行中进入到mongodb安装目录下的`bin`文件夹，然后输入`mongod.exe`来运行mongodb
 
 ## 操作步骤：
+
+1. 用户在cmd命令行窗口中进入到`travel`目录下，然后输入`npm install`来安装程序所依赖的模块 
 
 1. 用户在cmd命令行窗口中切换到`travel`目录下的`index`文件夹，然后输入 `node city_indexer.js` 来索引txt中的城市数据
 
