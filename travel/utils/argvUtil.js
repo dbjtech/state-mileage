@@ -20,12 +20,12 @@ const argv = require('yargs')
 	.options('t', {
 		alias: 'unit',
 		demand: true,
-		describe: 'choose the caculation method -- km or miles',
+		describe: 'choose the caculation method -- km or mile',
 		type: 'string',
-		choices: ['miles', 'km'],
+		choices: ['mile', 'km'],
 	})
 	.usage('Usage: $0 <command> [options]')
-    .example('$0 -u ../split/a/rawData.csv -o ../test/ -l ./locations/ -t miles',
+    .example('$0 -u ../split/a/rawData.csv -o ../test/ -l ./locations/ -t mile',
 	'-u points to the position of rawData,-o points to the position of uid.xlsx',
 	'-l points to the position of tid.csv,-t points to the unit you choose')
     .help('h')

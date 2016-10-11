@@ -75,7 +75,7 @@ emitter.on('parse file', function(file) {
 					table[k][table_row] = rs[k].mileage.toFixed(2)
 					console.log(k, '\t', rs[k].mileage.toFixed(2))
 				}
-				if (argvUtil.argv.unit === 'miles') {
+				if (argvUtil.argv.unit === 'mile') {
 					table[k][table_row] = (rs[k].mileage / 1.609344).toFixed(2)
 					console.log(k, '\t', (rs[k].mileage / 1.609344).toFixed(2))
 				}
@@ -88,7 +88,7 @@ emitter.on('parse file', function(file) {
 			if (argvUtil.argv.unit === 'km') {
 				console.log('total', sum.toFixed(2))
 			}
-			if (argvUtil.argv.unit === 'miles') {
+			if (argvUtil.argv.unit === 'mile') {
 				console.log('total', (sum / 1.609344).toFixed(2))
 			}
 			all_loc = {}
