@@ -69,39 +69,30 @@ emitter.on('parse file', function(file) {
 	})).pipe(es.wait(function(err, text) {
 		surveyor.statistic(db, all_loc, 1, function(err, rs) {
 			delete rs.last_province
-			if (argvUtil.argv.unit === 'km') {
-				for (var k in rs) {
-					table[k] = table[k] || []
-						// table[k][table_row] = (rs[k].mileage / 1.609344).toFixed(2)
-						// console.log(k, '\t', (rs[k].mileage / 1.609344).toFixed(2))
+			for (var k in rs) {
+				table[k] = table[k] || []
+				if (argvUtil.argv.unit === 'km') {
 					table[k][table_row] = rs[k].mileage.toFixed(2)
 					console.log(k, '\t', rs[k].mileage.toFixed(2))
 				}
-				table_row++
-				var sum = _.isEmpty(rs) ?
-					0 : _.reduce(_.pluck(_.values(rs), 'mileage'), function(sum, num) {
-						return sum + num
-					})
-					// console.log('total', (sum / 1.609344).toFixed(2))
-				console.log('total', sum.toFixed(2))
-				all_loc = {}
-				emitter.emit('pop file')
-			}
-			if (argvUtil.argv.unit === 'miles') {
-				for (var k in rs) {
-					table[k] = table[k] || []
+				if (argvUtil.argv.unit === 'miles') {
 					table[k][table_row] = (rs[k].mileage / 1.609344).toFixed(2)
 					console.log(k, '\t', (rs[k].mileage / 1.609344).toFixed(2))
 				}
-				table_row++
-				var sum = _.isEmpty(rs) ?
-					0 : _.reduce(_.pluck(_.values(rs), 'mileage'), function(sum, num) {
-						return sum + num
-					})
-				console.log('total', (sum / 1.609344).toFixed(2))
-				all_loc = {}
-				emitter.emit('pop file')
 			}
+			table_row++
+			var sum = _.isEmpty(rs) ?
+				0 : _.reduce(_.pluck(_.values(rs), 'mileage'), function(sum, num) {
+					return sum + num
+				})
+			if (argvUtil.argv.unit === 'km') {
+				console.log('total', sum.toFixed(2))
+			}
+			if (argvUtil.argv.unit === 'miles') {
+				console.log('total', (sum / 1.609344).toFixed(2))
+			}
+			all_loc = {}
+			emitter.emit('pop file')
 		})
 	}))
 })
