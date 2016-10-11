@@ -22,6 +22,7 @@ const argv = require('yargs')
 		demand: true,
 		describe: 'choose the caculation method -- km or miles',
 		type: 'string',
+		choices: ['miles', 'km'],
 	})
 	.usage('Usage: $0 <command> [options]')
     .example('$0 -u ../split/a/rawData.csv -o ../test/ -l ./locations/ -t miles',
