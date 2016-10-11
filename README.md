@@ -23,7 +23,7 @@ state-mileage是用来统计用户绑定终端号的车辆行驶的里程数的�
   1. 例子：假如我的用户原始数据文件为`cloudhawkuid.csv`，存放在`raw`文件夹中，我想把分割出来的用户的Xlsx文件存放在当前目录（`travel`目录）中的`uid`文件夹（新建的文件夹）下，而用户终端号的csv文件存放在`travel`目录下的一个叫`locations`的文件夹中，想得到里程单位为公里的数据
   
     则该命令应该这样输入：
-    `node main.js -u ./raw/cloudhawkuid.csv -o ./uid/ -l ./locations/ -t km` （注意：每个参数后面都有空格再接路径）程序运行成功的话控制台会输出若干条 write succeed
+    `node main.js -u ./raw/cloudhawkuid.csv -o ./uid -l ./locations -t km` （注意：每个参数后面都有空格再接路径）程序运行成功的话控制台会输出若干条 write succeed
 
   1. 此时进入`uid`文件夹下，可以看到有多个用户数据文件生成出来了，打开任意一个文件都可以看到用户使用的终端号在各个城市中的里程数据。到此程序运行成功并结束。
 
