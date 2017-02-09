@@ -17,12 +17,17 @@ function log_and_time(str) {
 	timestamp = now
 }
 
+function commit(cities, callback) {
+	console.log('commiting', cities.length, 'docs')
+	db.city.insert(cities, callback || db.default_db_callback)
+}
+
 function start() {
 	console.log('init')
 	db.init('city')
 	setTimeout(function() {
 		// db.city.drop(function(err){
-		// 	if(err) console.log(err)
+		//      if(err) console.log(err)
 		db.city.ensureIndex({
 			"geo": "2d"
 		}, db.default_db_callback)
@@ -54,15 +59,15 @@ emitter.once('index_provinces', function() {
 	}))
 })
 
+
 emitter.once('index_city_locations', function(provinces) {
 	console.log('index city locations')
+	var ps = es.pause()
 	var cities = []
 	var line_number = 0
+	var count = 0
 		//this method is non-block
-	function commit(cities, callback) {
-		console.log('commiting', cities.length, 'docs')
-		db.city.insert(cities, callback || db.default_db_callback)
-	}
+
 	fs.createReadStream(config.raw.city, {
 		flags: 'r'
 	}).pipe(es.split()).pipe(es.through(function(line) {
@@ -86,20 +91,32 @@ emitter.once('index_city_locations', function(provinces) {
 				//console.log(row)
 		}
 		if (cities.length >= 20000) {
-			commit(cities)
+			count++
+			ps.pause()
+			console.log('This is No.', count)
+			commit(cities, function() {
+				ps.resume()
+			})
 			cities = []
 		}
 	})).pipe(es.wait(function(err, text) {
 		if (cities.length) {
 			commit(cities, function(err) {
 				if (err) console.log(err)
-				emitter.emit('statistic')
+				emitter.emit('exit')
 			})
 		} else {
-			emitter.emit('statistic')
+			emitter.emit('exit')
 		}
 		log_and_time('finished indexing city locations.')
 	}))
+})
+
+emitter.once('exit', function() {
+	fibrous.run(function() {
+		console.log('exiting')
+		db.mongodb.close()
+	})
 })
 
 /*emitter.once('statistic',function(){fibrous.run(function(){
