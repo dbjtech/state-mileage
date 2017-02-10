@@ -1,7 +1,6 @@
 const fs = require('fs')
 const events = require('events')
 const es = require('event-stream')
-const fibrous = require('fibrous')
 const Promise = require('bluebird')
 const co = require('co')
 
@@ -122,8 +121,6 @@ emitter.once('cities array operation', (citiList) => {
 })
 
 emitter.once('exit', () => {
-	fibrous.run(() => {
-		console.log('exiting')
-		db.mongodb.close()
-	})
+	console.log('exiting')
+	db.mongodb.close()
 })
